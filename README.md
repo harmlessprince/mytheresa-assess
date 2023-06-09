@@ -27,7 +27,7 @@ This is a mini rest api that provides a single endpoint to fetch a list of seede
 * Ability to filter products using category query param
 * Ability to filter products using priceLessThan query param
 * Ability to see applied discount details on product price
-* Ability to paginate result using per_page quary param
+* Ability to paginate result using per_page query param
 
 ## API Endpoints
 ### Base URL = http://localhost:5454/
