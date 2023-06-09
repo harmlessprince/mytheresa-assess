@@ -38,7 +38,7 @@ Method | Route | Description | Query Params
 --- | --- | ---|---
 `GET` | `/api/products` | View all products available |  priceLessThan, category, per_page |
 
-For examples of payloads, response and available query. Visit [The Product API Postman Collection](https://documenter.getpostman.com/view/11352884/2s8YzRz3Cc)
+For examples of payloads, response and available query. Visit [The Product API Postman Collection](https://documenter.getpostman.com/view/11352884/2s93sacE5q)
 
 ## Setup
 This instruction will get the project working on your local machine for DEVELOPMENT and TESTING purposes.
