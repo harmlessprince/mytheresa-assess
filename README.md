@@ -1,66 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MyTheresa Product API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Introduction
 
-## About Laravel
+This is a mini rest api that provides a single endpoint to fetch a list of seeded products, filter by category and price. Also applies discount were applicable
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table of Contents
+1. <a href="#how-it-works">How it works</a>
+2. <a href="#technology-stack">Technology Stack</a>
+3. <a href="#application-features">Application Features</a>
+4. <a href="#api-endpoints">API Endpoints</a>
+5. <a href="#setup">Setup</a>
+6. <a href="#explanation">Explanation Of Decision Taken</a>
+7. <a href="#author">Author</a>
+8. <a href="#license">License</a>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Technology Stack
+  - [PHP](https://www.php.net)
+  - [Laravel](https://laravel.com)
+  - [MySQL](https://www.mysql.com)
+  - [Docker](https://docs.docker.com/desktop/)
+  ### Testing tools
+  - [PHPUnit](https://phpunit.de) 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Application Features
+* Ability to view list of products
+* Ability to filter products using category query param
+* Ability to filter products using priceLessThan query param
+* Ability to see applied discount details on product price
+* Ability to paginate result using per_page quary param
 
-## Learning Laravel
+## API Endpoints
+### Base URL = http://localhost:5454/
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### NOTE : per_page has a default value of 5 as required in requirement
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Method | Route | Description | Query Params
+--- | --- | ---|---
+`GET` | `/api/products` | View all products available |  priceLessThan, category, per_page |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+For examples of payloads, response and available query. Visit [The Product API Postman Collection](https://documenter.getpostman.com/view/11352884/2s8YzRz3Cc)
 
-## Laravel Sponsors
+## Setup
+This instruction will get the project working on your local machine for DEVELOPMENT and TESTING purposes.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+  #### Dependencies
+  - [Docker](https://docs.docker.com/desktop/)
+ 
+  #### Getting Started
+  - Install and setup docker
+  - Open terminal and run the following commands
+    ```
+    //clone repository
+    $ git clone git@github.com:harmlessprince/mytheresa-assessment.git
+    
+    //move into clone repository
+    $ cd mytheresa-assessment
+    
+    //create enviroment file
+    $ touch .env
+    
+    //copy enviroment variables from .env.example to .env(DON'T CHANGE ANY VALUE except you have expertise in docker)
+    $ cp .env.example .env
+    
+    //Build docker files 
+    $ docker-compose build mytheresa
+    
+    //start application to see logs in none detached mode (recommended)
+    $ docker-compose up
+    
+    //Or start application in detached mode (No Log, Not Recommended)
+    $ docker-compose up -d
+    
+    NOTE: Open a new terminal and run below command if you start your app in none detached mode
+    
+    //Generate APP Key
+    $ docker-compose exec mytheresa php artisan key:generate
+    
+    //migrate database and seed data 
+    $ docker-compose exec mytheresa php artisan migrate --seed
+    ```
+    
+    If all goes well 
+  - Visit http://localhost:5454/ on your browser to view laravel home
+  - Visit http://localhost:8200/ on your browser to view database using phpmyadmin
+  
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+  ### Testing
+  ```
+  $ docker-compose exec mytheresa php artisan test
+  ```
+  If correctly setup, all tests should pass
+  
+  #### Start Application
+  
+  ```
+  $ docker-compose up
+  ```
+  
+  #### Stop Application
+  
+  ```
+  $ docker-compose down
+  ```
+## Explanation
+    1. Invokable Controller: Since our controller only performs a single action, It makes sense to use an invokable 
+       class, which also helps us maintain the Single Responsibility Principle in SOLID. 
+       Also, note the naming convention used.
+    2. Product Discount Libary is a mini class that calculates discounts according to the product supplied.
+        a. The Constructor: 
+           In the product discount library constructor, we initiated the "discounts" variable to 
+           hold available discounts; this is done to have a single instance of the discount value while calculating 
+           the "discount" of the product supplied. If for any reason, these values are moved to the database level, 
+           the discounts table will only be queried once to get the available discounts, which in turn reduces the 
+           number of the database query to just 2(getting products and discounts).
+           
+        b. pickMaxDiscount Method: 
+           According to the requirement, The maximum discount should always be applied 
+           when more than one discount is available. By filtering the discounts using SKU and category we get an array 
+           of discount which the laravel collection max helper is used to pick the maximum discount percentage value if 
+           discounts returned is more than one otherwise it returns null.
+    3. A constant called CURRENCY is created on the product model since it is stated the currency will always be in euros(EUR) 
+        
+## Author
+ Name: Adewuyi Taofeeq <br>
+ Email: realolamilekan@gmail.com <br>
+ LinkenIn:  <a href="#license">Adewuyi Taofeeq Olamikean</a> <br>
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ISC
